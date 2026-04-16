@@ -3,9 +3,8 @@ import { useState, useEffect } from "react";
 import { createClass } from "../../../models/Class";
 
 export default function ClassCreateForm() {
-  //useState - vytvoreni promenne v reactu
-  // nazev promenne, setter       useState(default_hodnota)
-  const [formData, setFormData] = useState();
+  // Inicializace formData jako objekt
+  const [formData, setFormData] = useState({});
   const [info, setInfo] = useState();
   const navigate = useNavigate();
 
@@ -20,6 +19,10 @@ export default function ClassCreateForm() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleCheckboxChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.checked });
   };
 
   const handlePost = (e) => {
@@ -41,30 +44,28 @@ export default function ClassCreateForm() {
           required
           name="year"
           placeholder="Enter year"
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
         />
         <input
           type="text"
           required
           name="id"
           placeholder="Enter id"
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
         />
         <p>Does it have classroom?</p>
         <input
           type="checkbox"
           name="classroom"
-          onChange={(e) => {
-            setFormData({ ...formData, [e.target.name]: e.target.checked });
-          }}
+          onChange={handleCheckboxChange}
         />
         <input
           type="number"
           name="classroomNumber"
           placeholder="Enter number"
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
         />
-        <button onClick={handlePost}>Create classs</button>
+        <button onClick={handlePost}>Create class</button>
       </form>
       <p>{info}</p>
       <Link to={"/"}>
